@@ -1,7 +1,7 @@
 # Porkbun Go SDK
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/tuzzmaniandevil/porkbun)](https://goreportcard.com/report/github.com/tuzzmaniandevil/porkbun)
-[![GoDoc](https://godoc.org/github.com/tuzzmaniandevil/porkbun?status.svg)](https://godoc.org/github.com/tuzzmaniandevil/porkbun)
+[![Go Report Card](https://goreportcard.com/badge/github.com/tuzzmaniandevil/porkbun-go)](https://goreportcard.com/report/github.com/tuzzmaniandevil/porkbun-go)
+[![GoDoc](https://godoc.org/github.com/tuzzmaniandevil/porkbun-go?status.svg)](https://godoc.org/github.com/tuzzmaniandevil/porkbun-go)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 The Porkbun Go SDK is a fully-featured Go client for interacting with the [Porkbun API v3](https://porkbun.com/api/json/v3/documentation). This SDK simplifies integration with Porkbun's services, providing an easy-to-use and comprehensive interface for managing domains, DNS records, SSL certificates, and more.
@@ -19,7 +19,7 @@ The Porkbun Go SDK is a fully-featured Go client for interacting with the [Porkb
 Install the SDK using `go get`:
 
 ```bash
-go get github.com/tuzzmaniandevil/porkbun
+go get github.com/tuzzmaniandevil/porkbun-go
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ import (
     "fmt"
     "log"
 
-    "github.com/tuzzmaniandevil/porkbun"
+    "github.com/tuzzmaniandevil/porkbun-go"
 )
 
 func main() {
@@ -58,11 +58,11 @@ func main() {
 
 ### Advanced Usage
 
-For advanced usage, including custom API requests and handling more complex scenarios, refer to the [examples](https://github.com/tuzzmaniandevil/porkbun/tree/main/examples) directory in the repository.
+For advanced usage, including custom API requests and handling more complex scenarios, refer to the [examples](https://github.com/tuzzmaniandevil/porkbun-go/tree/main/examples) directory in the repository.
 
 ## Documentation
 
-Comprehensive documentation is available on [GoDoc](https://godoc.org/github.com/tuzzmaniandevil/porkbun).
+Comprehensive documentation is available on [GoDoc](https://godoc.org/github.com/tuzzmaniandevil/porkbun-go).
 
 ## Testing
 
