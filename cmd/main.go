@@ -6,9 +6,10 @@ import (
 	"crypto/tls"
 	"fmt"
 	"os"
-	"porkbun"
 	"slices"
 	"strings"
+
+	"github.com/tuzzmaniandevil/porkbun-go"
 )
 
 func main() {

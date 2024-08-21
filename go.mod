@@ -1,4 +1,5 @@
-module porkbun
+module github.com/tuzzmaniandevil/porkbun-go
+
 
 go 1.21.0
 
