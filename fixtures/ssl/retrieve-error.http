@@ -1,0 +1,11 @@
+HTTP/1.1 400
+Date: Tue, 20 Aug 2024 04:08:32 GMT
+Content-Type: application/json
+Connection: keep-alive
+Server: openresty
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+{"status":"ERROR","message":"The SSL certificate is not ready for this domain."}

@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Wed, 21 Aug 2024 01:33:21 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: openresty
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Frame-Options: sameorigin
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin
+Content-Language: en-US, en
+
+{"status":"SUCCESS","cloudflare":"enabled","records":[{"id":"421766138","name":"example.com","type":"ALIAS","content":"pixie.porkbun.com","ttl":"600","prio":null,"notes":null}]}

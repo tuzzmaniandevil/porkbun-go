@@ -1,0 +1,7 @@
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+{
+  "status": "ERROR",
+  "message": "invalid name server list"
+}

@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Date: Tue, 20 Aug 2024 03:01:30 GMT
+Content-Type: application/json
+Connection: keep-alive
+Server: openresty
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Frame-Options: sameorigin
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin
+Content-Language: en-US, en
+
+{"status":"SUCCESS","domains":[{"domain":"borseth.ink","status":"ACTIVE","tld":"app","createDate":"2018-08-20T17:52:51","expireDate":"2023-08-20 17:52","securityLock":"1","whoisPrivacy":"1","autoRenew":0,"notLocal":0,"labels":[{"id":"27240","title":"cool","color":"#ff9e9e"},{"id":"27241","title":"silly","color":"#f00000"}]}]}

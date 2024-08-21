@@ -1,0 +1,10 @@
+HTTP/1.1 400 
+date: Tue, 20 Aug 2024 01:58:55 GMT
+content-type: application/json
+server: openresty
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+
+{"status":"ERROR","message":"Invalid API key. (002)"}
