@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -122,6 +123,34 @@ func TestBoolNumberWithInvalidValue(t *testing.T) {
 	err := json.Unmarshal([]byte(`"invalid"`), &bn)
 
 	assert.Error(t, err)
+}
+
+func TestUnmarshalBool(t *testing.T) {
+	tests := []struct {
+		name    string
+		data    []byte
+		want    bool
+		wantErr assert.ErrorAssertionFunc
+	}{
+		{name: "valid string false", data: []byte(`"false"`), want: false, wantErr: assert.NoError},
+		{name: "valid string true", data: []byte(`"true"`), want: true, wantErr: assert.NoError},
+		{name: "valid string 0", data: []byte(`"0"`), want: false, wantErr: assert.NoError},
+		{name: "valid string 1", data: []byte(`"1"`), want: true, wantErr: assert.NoError},
+		{name: "empty string", data: []byte(`""`), want: false, wantErr: assert.NoError},
+		{name: "invalid string", data: []byte(`"invalid"`), want: false, wantErr: assert.Error},
+		{name: "valid number 0", data: []byte(`0`), want: false, wantErr: assert.NoError},
+		{name: "valid number 1", data: []byte(`1`), want: true, wantErr: assert.NoError},
+		{name: "invalid number", data: []byte(`2`), want: false, wantErr: assert.Error},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := unmarshalBool(tt.data)
+			if !tt.wantErr(t, err, fmt.Sprintf("unmarshalBool(%v)", tt.data)) {
+				return
+			}
+			assert.Equalf(t, tt.want, got, "unmarshalBool(%v)", tt.data)
+		})
+	}
 }
 
 func TestErrorResponse_ErrorMessage(t *testing.T) {
