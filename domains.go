@@ -52,14 +52,18 @@ func (d *Domain) UnmarshalJSON(data []byte) error {
 	}
 
 	var err error
-	d.CreateDate, err = time.Parse(timeFormat, aux.CreateDate)
-	if err != nil {
-		return fmt.Errorf("error parsing CreateDate: %w", err)
+	if aux.CreateDate != "" {
+		d.CreateDate, err = time.Parse(timeFormat, aux.CreateDate)
+		if err != nil {
+			return fmt.Errorf("error parsing CreateDate: %w", err)
+		}
 	}
 
-	d.ExpireDate, err = time.Parse(timeFormat, aux.ExpireDate)
-	if err != nil {
-		return fmt.Errorf("error parsing ExpireDate: %w", err)
+	if aux.ExpireDate != "" {
+		d.ExpireDate, err = time.Parse(timeFormat, aux.ExpireDate)
+		if err != nil {
+			return fmt.Errorf("error parsing ExpireDate: %w", err)
+		}
 	}
 
 	return nil
