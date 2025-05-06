@@ -61,6 +61,18 @@ func main() {
 			fmt.Printf("%v\t%v\tIN\t%v\t%v\n", dnsName, dns.TTL, dns.Type, dns.Content)
 		}
 
+		// Check DNSSEC Records
+		dnssecResp, err := client.Dns.GetDnssecRecords(context.Background(), domain.Domain)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Found %v DNSSEC Records\n", len(dnssecResp.Records))
+
+		for _, record := range dnssecResp.Records {
+			fmt.Printf("KeyTag=%v\tAlg=%v\tAlgIsValid=%v\tDigestType=%v\tDigest=%v\n", record.KeyTag, record.Alg, record.Alg.IsValid(), record.DigestType, record.Digest)
+		}
+
 		fmt.Println()
 	}
 }
