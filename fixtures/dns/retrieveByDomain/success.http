@@ -1,7 +1,6 @@
 HTTP/1.1 200 OK
 Date: Tue, 20 Aug 2024 22:56:32 GMT
 Content-Type: application/json
-Transfer-Encoding: chunked
 Connection: keep-alive
 Server: openresty
 Expires: Thu, 19 Nov 1981 08:52:00 GMT

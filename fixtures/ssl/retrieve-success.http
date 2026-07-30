@@ -1,7 +1,6 @@
 HTTP/1.1 200 
 date: Tue, 20 Aug 2024 01:56:17 GMT
 content-type: application/json
-Transfer-Encoding: chunked
 server: openresty
 expires: Thu, 19 Nov 1981 08:52:00 GMT
 cache-control: no-store, no-cache, must-revalidate
@@ -13,4 +12,4 @@ x-xss-protection: 1; mode=block
 referrer-policy: origin
 content-language: en-US, en
 
-{"status":"SUCCESS","certificatechain":"----BEGIN CERTIFICATE-----\n...-----END CERTIFICATE-----\n\n----BEGIN CERTIFICATE-----\n...-----END CERTIFICATE-----\n\n----BEGIN CERTIFICATE-----\n...-----END CERTIFICATE-----\n","privatekey":"-----BEGIN PRIVATE KEY-----\n...-----END PRIVATE KEY-----\n","publickey":"-----BEGIN PUBLIC KEY-----\n...-----END PUBLIC KEY-----\n"}
+{"status":"SUCCESS","certificatechain":"-----BEGIN CERTIFICATE-----\n...-----END CERTIFICATE-----\n\n-----BEGIN CERTIFICATE-----\n...-----END CERTIFICATE-----\n\n-----BEGIN CERTIFICATE-----\n...-----END CERTIFICATE-----\n","privatekey":"-----BEGIN PRIVATE KEY-----\n...-----END PRIVATE KEY-----\n","publickey":"-----BEGIN PUBLIC KEY-----\n...-----END PUBLIC KEY-----\n"}

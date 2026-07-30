@@ -3,7 +3,6 @@ package porkbun
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 )
 
 // Pricing represents the pricing information for a domain,
@@ -19,43 +18,41 @@ type Pricing struct {
 // Coupon represents the details of a coupon, such as the code, limits,
 // applicability, and discount amount.
 type Coupon struct {
-	Code          string `json:"code"`            // Coupon code
-	MaxPerUser    int64  `json:"max_per_user"`    // Maximum number of uses per user
-	FirstYearOnly string `json:"first_year_only"` // Indicates if the coupon is applicable only for the first year
-	Type          string `json:"type"`            // Type of discount (e.g., amount, percentage)
-	Amount        int64  `json:"amount"`          // Discount amount
+	Code          string  `json:"code"`            // Coupon code
+	MaxPerUser    int64   `json:"max_per_user"`    // Maximum number of uses per user
+	FirstYearOnly YesNo   `json:"first_year_only"` // Whether the coupon applies to the first year only
+	Type          string  `json:"type"`            // Type of discount (e.g., amount, percentage)
+	Amount        float64 `json:"amount"`          // Discount amount
 }
 
-// Coupons is a custom type that represents either a map of coupon codes to Coupon details
-// or an empty array, which is unmarshaled as a nil map.
+// Coupons maps a product type, such as "registration", to the coupon active for
+// it. An absent coupon set decodes as a nil map.
 type Coupons map[string]Coupon
 
-// UnmarshalJSON handles the unmarshaling of the Coupons field, which can be either
-// a map of coupons or an empty array. This method ensures correct parsing based on the input type.
+// UnmarshalJSON implements custom unmarshalling logic for Coupons.
 func (c *Coupons) UnmarshalJSON(data []byte) error {
-	// Try to unmarshal as a map of coupons
-	var couponsMap map[string]Coupon
-	if err := json.Unmarshal(data, &couponsMap); err == nil {
-		*c = couponsMap
-		return nil
-	}
+	return unmarshalFlexMap(data, c, "coupons")
+}
 
-	// Try to unmarshal as an empty array
-	var emptyArray []interface{}
-	if err := json.Unmarshal(data, &emptyArray); err == nil && len(emptyArray) == 0 {
-		*c = nil // Set Coupons to nil if it's an empty array
-		return nil
-	}
+// PricingMap maps a TLD, without a leading dot, to its pricing.
+type PricingMap map[string]Pricing
 
-	// Return an error if neither format is valid
-	return fmt.Errorf("coupons field has an unexpected type")
+// UnmarshalJSON implements custom unmarshalling logic for PricingMap.
+func (p *PricingMap) UnmarshalJSON(data []byte) error {
+	return unmarshalFlexMap(data, p, "pricing")
 }
 
 // PricingResponse wraps the response from the pricing API, including the base response
 // and the pricing details for various domain types.
 type PricingResponse struct {
 	BaseResponse
-	Pricing map[string]Pricing `json:"pricing"` // Map of domain type to pricing details
+	Pricing PricingMap `json:"pricing"` // Map of domain type to pricing details
+}
+
+// pricingRequest represents the request structure for the pricing API.
+// Pricing is public, so no credentials are sent.
+type pricingRequest struct {
+	TLDs []string `json:"tlds,omitempty"` // Optional TLDs to filter results by. All supported TLDs are returned when empty.
 }
 
 // PricingService provides methods to interact with the pricing API.
@@ -64,23 +61,19 @@ type PricingService struct {
 }
 
 // ListPricing retrieves the pricing information for various domain types from the API.
-// It returns a PricingResponse containing the parsed pricing data.
-func (s *PricingService) ListPricing(ctx context.Context) (*PricingResponse, error) {
-	// Initialize an empty PricingResponse
+// Pass one or more TLDs (without a leading dot) to filter the result.
+func (s *PricingService) ListPricing(ctx context.Context, tlds ...string) (*PricingResponse, error) {
 	response := &PricingResponse{}
 
-	// Make a POST request to the pricing endpoint
-	resp, err := s.client.post(ctx, "/pricing/get", nil, response)
-	if err != nil {
-		return nil, err
-	}
+	// Pricing is public, so no credentials are sent. TLDs is omitempty, so an
+	// unfiltered call posts an empty object rather than an empty body.
+	request := &pricingRequest{TLDs: tlds}
 
-	// Attach the HTTP response to the PricingResponse
-	response.HTTPResponse = resp
-	return response, nil
+	_, err := s.client.post(ctx, "/pricing/get", request, response, withoutHeaderAuth())
+	return response, err
 }
 
-// Interface guards ensure that the Coupons type implements the json.Unmarshaler interface.
 var (
 	_ json.Unmarshaler = (*Coupons)(nil)
+	_ json.Unmarshaler = (*PricingMap)(nil)
 )

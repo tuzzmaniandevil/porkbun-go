@@ -14,8 +14,8 @@ import (
 
 func main() {
 	client := porkbun.NewClient(&porkbun.Options{
-		ApiKey:       os.Getenv("PORKBUN_API_KEY"),
-		SecretApiKey: os.Getenv("PORKBUN_API_SECRET"),
+		APIKey:       os.Getenv("PORKBUN_API_KEY"),
+		SecretAPIKey: os.Getenv("PORKBUN_API_SECRET"),
 	})
 
 	resp, err := client.Ping(context.Background())
@@ -26,8 +26,14 @@ func main() {
 	fmt.Printf("HTTP Status Code: %v\n", resp.HTTPResponse.StatusCode)
 	fmt.Printf("HTTP Status: %v\n", resp.HTTPResponse.Status)
 	fmt.Printf("HTTP Proto: %v\n", resp.HTTPResponse.Proto)
-	fmt.Printf("HTTP TLS Version: %v\n", tls.VersionName(resp.HTTPResponse.TLS.Version))
-	fmt.Printf("HTTP TLS Protocol: %v\n", resp.HTTPResponse.TLS.NegotiatedProtocol)
+
+	// Absent when the client was pointed at a plain HTTP endpoint, such as a
+	// local mock through Options.BaseURL.
+	if state := resp.HTTPResponse.TLS; state != nil {
+		fmt.Printf("HTTP TLS Version: %v\n", tls.VersionName(state.Version))
+		fmt.Printf("HTTP TLS Protocol: %v\n", state.NegotiatedProtocol)
+	}
+
 	fmt.Printf("API Status: %v\n", resp.Status)
 	fmt.Printf("Your IP: %v\n", resp.YourIP)
 
@@ -41,28 +47,27 @@ func main() {
 	for _, domain := range listDomainsResp.Domains {
 		fmt.Printf("Domain: %v\n", domain.Domain)
 
-		dnsResp, err := client.Dns.GetRecords(context.Background(), domain.Domain, nil)
+		dnsResp, err := client.DNS.ListRecords(context.Background(), domain.Domain)
 		if err != nil {
 			panic(err)
 		}
 
 		fmt.Printf("Found %v records\n", len(dnsResp.Records))
-		slices.SortFunc(dnsResp.Records, func(a, b porkbun.DnsRecord) int {
+		slices.SortFunc(dnsResp.Records, func(a, b porkbun.DNSRecord) int {
 			return cmp.Compare(a.Name, b.Name)
 		})
 
 		for _, dns := range dnsResp.Records {
-			var dnsName string
+			// TrimSuffix, not ReplaceAll: the domain has to come off the end,
+			// or a record named "example.com.example.com" loses the wrong half.
+			dnsName := strings.TrimSuffix(dns.Name, "."+domain.Domain)
 			if strings.EqualFold(dns.Name, domain.Domain) {
 				dnsName = "@"
-			} else {
-				dnsName = strings.Replace(dns.Name, "."+domain.Domain, "", -1)
 			}
 			fmt.Printf("%v\t%v\tIN\t%v\t%v\n", dnsName, dns.TTL, dns.Type, dns.Content)
 		}
 
-		// Check DNSSEC Records
-		dnssecResp, err := client.Dns.GetDnssecRecords(context.Background(), domain.Domain)
+		dnssecResp, err := client.DNS.GetDNSSECRecords(context.Background(), domain.Domain)
 		if err != nil {
 			panic(err)
 		}

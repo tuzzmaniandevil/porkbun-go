@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Tue, 28 Jul 2026 04:14:50 GMT
+Content-Type: application/json
+Connection: keep-alive
+Server: openresty
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Frame-Options: sameorigin
+X-Content-Type-Options: nosniff
+X-API-Version: 3.9
+Link: <https://porkbun.com/api/json/v3/spec>; rel="describedby"
+
+{"status":"SUCCESS","deliveries":[{"id":"3001","endpointId":"7","eventType":"domain.renewed","eventId":"018f9c2a-7b3e-7c41-9b8a-2f1e6d4c5a90","status":"DELIVERED","attempts":1,"maxAttempts":6,"httpStatus":200,"lastError":null,"nextAttemptAt":null,"createDate":"2026-07-27 22:09:58","deliveredDate":"2026-07-27 22:10:00"},{"id":"3002","endpointId":"8","eventType":"dns.record.created","eventId":"018f9c2b-1111-7c41-9b8a-2f1e6d4c5a91","status":"FAILED","attempts":6,"maxAttempts":6,"httpStatus":500,"lastError":"HTTP 500 from endpoint","nextAttemptAt":null,"createDate":"2026-07-26 02:00:00","deliveredDate":null}],"total":2,"start":0,"limit":50,"requestId":"019fa6cf-aa0e-7083-8d51-92119ff2c113"}

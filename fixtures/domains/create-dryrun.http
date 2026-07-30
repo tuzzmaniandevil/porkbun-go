@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Tue, 28 Jul 2026 04:14:50 GMT
+Content-Type: application/json
+Connection: keep-alive
+Server: openresty
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Frame-Options: sameorigin
+X-Content-Type-Options: nosniff
+X-API-Version: 3.9
+Link: <https://porkbun.com/api/json/v3/spec>; rel="describedby"
+
+{"status":"SUCCESS","dryRun":true,"wouldSucceed":true,"operation":"registration","domain":"example.com","tld":"com","available":"available","premium":false,"duration":1,"cost":973,"costDisplay":"$9.73","balance":5000,"sufficientFunds":true,"monthlySpendLimit":50000,"monthlySpendSoFar":12000,"withinMonthlySpendLimit":true,"message":"Dry run: this registration would succeed and cost $9.73. No order was created and no charge was made.","requestId":"019fa6cf-aa0e-7083-8d51-92119ff2c113"}

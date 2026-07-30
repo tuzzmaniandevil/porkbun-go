@@ -7,4 +7,4 @@ cache-control: no-store, no-cache, must-revalidate
 pragma: no-cache
 strict-transport-security: max-age=63072000; includeSubDomains; preload
 
-{"status":"SUCCESS","yourIp":"2404:4400:5401:d900:6b19:e84:33cb:cd66"}
+{"status":"SUCCESS","credentialsValid":true,"yourIp":"2404:4400:5401:d900:6b19:e84:33cb:cd66"}

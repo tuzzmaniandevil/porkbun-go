@@ -1,0 +1,20 @@
+version: "2"
+
+# revive's var-naming and exported rules are the ones that matter here: the
+# package spells initialisms consistently (API, DNS, DNSSEC, HTTP, ID, SSL, URL,
+# TLD) and every exported identifier is documented. Both are easy to regress and
+# neither is caught by go vet.
+linters:
+  enable:
+    - revive
+  settings:
+    revive:
+      rules:
+        - name: var-naming
+        - name: exported
+  exclusions:
+    rules:
+      # Test files construct wire types and assert on their fields; the exported
+      # rule has nothing to say about them.
+      - path: _test\.go
+        linters: [revive]

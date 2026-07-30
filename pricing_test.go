@@ -8,10 +8,11 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestPricingService_ListPricing_success(t *testing.T) {
-	setupMockServer(false)
+	setupMockServer(true)
 	defer teardownMockServer()
 
 	mux.HandleFunc("/pricing/get", func(w http.ResponseWriter, r *http.Request) {
@@ -27,8 +28,11 @@ func TestPricingService_ListPricing_success(t *testing.T) {
 
 	resp, err := client.Pricing.ListPricing(context.Background())
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 	assert.Equal(t, "SUCCESS", resp.Status)
+	assert.NotEmpty(t, resp.Pricing["com"].Registration, "registration price must decode")
+	assert.NotEmpty(t, resp.Pricing["com"].Renewal)
+	assert.NotEmpty(t, resp.Pricing["com"].Transfer)
 	assert.NotEmpty(t, resp.Pricing)
 	assert.NotNil(t, resp.Pricing["com.mx"])
 	assert.NotNil(t, resp.Pricing["com.mx"].Coupons)
@@ -37,7 +41,7 @@ func TestPricingService_ListPricing_success(t *testing.T) {
 }
 
 func TestPricingService_ListPricing_InvalidCouponType(t *testing.T) {
-	setupMockServer(false)
+	setupMockServer(true)
 	defer teardownMockServer()
 
 	mux.HandleFunc("/pricing/get", func(w http.ResponseWriter, r *http.Request) {
@@ -57,32 +61,49 @@ func TestPricingService_ListPricing_InvalidCouponType(t *testing.T) {
 }
 
 func TestPricingService_ListPricing_EmptyResponse(t *testing.T) {
-	setupMockServer(false)
+	setupMockServer(true)
 	defer teardownMockServer()
 
 	mux.HandleFunc("/pricing/get", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, `{"status":"SUCCESS","pricing":{}}`)
+		_, _ = fmt.Fprint(w, `{"status":"SUCCESS","pricing":{}}`)
 	})
 
 	resp, err := client.Pricing.ListPricing(context.Background())
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 	assert.Equal(t, "SUCCESS", resp.Status)
 	assert.Empty(t, resp.Pricing)
 }
 
 func TestPricingService_ListPricing_MalformedResponse(t *testing.T) {
-	setupMockServer(false)
+	setupMockServer(true)
 	defer teardownMockServer()
 
 	mux.HandleFunc("/pricing/get", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, `{"status":"SUCCESS","pricing":`)
+		_, _ = fmt.Fprint(w, `{"status":"SUCCESS","pricing":`)
 	})
 
 	_, err := client.Pricing.ListPricing(context.Background())
 
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "unexpected end of JSON input")
+}
+
+// Pricing is public: the client must send no credentials even when it has them,
+// which handleFixtureNoAuth asserts for both the body and the headers.
+func TestPricing_ListPricing_TldFilter(t *testing.T) {
+	setupMockServer(true)
+	defer teardownMockServer()
+
+	handleFixtureNoAuth(t, "/pricing/get", "POST", "/pricing/success.http",
+		func(data map[string]interface{}) {
+			assert.Equal(t, []interface{}{"com", "io"}, data["tlds"])
+		})
+
+	resp, err := client.Pricing.ListPricing(context.Background(), "com", "io")
+
+	require.NoError(t, err)
+	assert.NotEmpty(t, resp.Pricing)
 }

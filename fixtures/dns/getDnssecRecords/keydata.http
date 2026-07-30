@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Tue, 28 Jul 2026 04:14:50 GMT
+Content-Type: application/json
+Connection: keep-alive
+Server: openresty
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Frame-Options: sameorigin
+X-Content-Type-Options: nosniff
+X-API-Version: 3.9
+Link: <https://porkbun.com/api/json/v3/spec>; rel="describedby"
+
+{"status":"SUCCESS","records":{"64087":{"keyTag":"64087","alg":"13","digestType":"2","digest":"68df6e2f3d3f4ba1a1eb0a5a1a86e0e5b0a1e2c3d4e5f60718293a4b5c6d7e8f","pubKey":"mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ=="}},"requestId":"019fa6cf-aa0e-7083-8d51-92119ff2c113"}

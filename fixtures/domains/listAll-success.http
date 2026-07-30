@@ -13,4 +13,4 @@ X-XSS-Protection: 1; mode=block
 Referrer-Policy: origin
 Content-Language: en-US, en
 
-{"status":"SUCCESS","domains":[{"domain":"borseth.ink","status":"ACTIVE","tld":"app","createDate":"2018-08-20 17:52:51","expireDate":"2023-08-20 17:52:51","securityLock":"1","whoisPrivacy":"1","autoRenew":0,"notLocal":0,"labels":[{"id":"27240","title":"cool","color":"#ff9e9e"},{"id":"27241","title":"silly","color":"#f00000"}]}]}
+{"status":"SUCCESS","domains":[{"domain":"borseth.ink","status":"ACTIVE","tld":"ink","createDate":"2018-08-20 17:52:51","expireDate":"2023-08-20 17:52:51","securityLock":"1","whoisPrivacy":"1","autoRenew":0,"notLocal":0,"labels":[{"id":"27240","title":"cool","color":"#ff9e9e"},{"id":"27241","title":"silly","color":"#f00000"}]}]}

@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Tue, 28 Jul 2026 04:14:50 GMT
+Content-Type: application/json
+Connection: keep-alive
+Server: openresty
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Frame-Options: sameorigin
+X-Content-Type-Options: nosniff
+X-API-Version: 3.9
+Link: <https://porkbun.com/api/json/v3/spec>; rel="describedby"
+
+{"status":"SUCCESS","domain":"example.com","cost":973,"orderId":"12345678","balance":4027,"ttlRemaining":86400,"limits":{"attempts":{"TTL":10,"limit":1,"used":1,"naturalLanguage":"1 out of 1 create attempts within 10 seconds used."},"success":{"TTL":86400,"limit":50,"used":1,"naturalLanguage":"1 out of 50 successful creates within 86400 seconds used."}},"requestId":"019fa6cf-aa0e-7083-8d51-92119ff2c113"}

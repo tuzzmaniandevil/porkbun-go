@@ -1,7 +1,6 @@
 HTTP/1.1 400 Bad Request
 Date: Tue, 20 Aug 2024 22:30:46 GMT
 Content-Type: application/json
-Transfer-Encoding: chunked
 Connection: keep-alive
 Set-Cookie: AWSALB=5HXpAUs+b1tymUDUYhpKTTIM/mc50FSZdrX1pUlmejURJ4N2eTYqnnaEz2epWMcUWe6ov4w2oICija2MnRl246hKbQtycd/R53jxQPzsZiGsGfMK9tstRFQnMs0G; Expires=Tue, 27 Aug 2024 22:30:45 GMT; Path=/
 Set-Cookie: AWSALBCORS=5HXpAUs+b1tymUDUYhpKTTIM/mc50FSZdrX1pUlmejURJ4N2eTYqnnaEz2epWMcUWe6ov4w2oICija2MnRl246hKbQtycd/R53jxQPzsZiGsGfMK9tstRFQnMs0G; Expires=Tue, 27 Aug 2024 22:30:45 GMT; Path=/; SameSite=None; Secure
